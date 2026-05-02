@@ -1,0 +1,43 @@
+.account-actions {
+  padding: var(--space-6, 24px);
+}
+
+.account-actions h2 {
+  color: var(--color-text-primary, #111827);
+  margin-bottom: var(--space-6, 24px);
+  font-size: var(--font-size-xl, 20px);
+  font-weight: var(--font-weight-semibold, 600);
+}
+
+.account-actions__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4, 16px);
+  align-items: center;
+}
+
+.theme-toggle-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2, 8px);
+  background: var(--color-primary-500, #f4511e);
+  color: var(--color-text-inverse, #ffffff);
+  border-radius: var(--radius-md, 10px);
+  padding: var(--space-4, 16px) var(--space-6, 24px);
+  font-weight: var(--font-weight-semibold, 600);
+  letter-spacing: 0.2px;
+}
+
+.logout-button {
+  background: var(--color-error, #ef4444);
+  color: var(--color-text-inverse, #ffffff);
+  border-radius: var(--radius-md, 10px);
+  font-size: var(--font-size-md, 16px);
+  font-weight: var(--font-weight-semibold, 600);
+  transition: background-color 0.2s ease;
+}
+
+.logout-button:hover {
+  background: #dc2626;
+}

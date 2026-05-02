@@ -1,0 +1,13 @@
+<div class="user-search">
+  <mat-form-field appearance="outline" class="search-field">
+    <mat-label>Search users by name or email</mat-label>
+    <input
+      matInput
+      type="text"
+      [(ngModel)]="searchTerm"
+      (input)="onSearchChange()"
+      placeholder="Enter name or email..."
+    >
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+</div>

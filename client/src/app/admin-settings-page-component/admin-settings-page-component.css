@@ -1,0 +1,21 @@
+.admin-settings-container {
+  max-width: 800px;
+  margin: var(--space-8, 32px) auto;
+  padding: var(--space-6, 24px);
+}
+
+.admin-settings-container h1 {
+  margin-bottom: var(--space-6, 24px);
+  color: var(--color-text-primary, #111827);
+  font-size: var(--font-size-2xl, 24px);
+  font-weight: var(--font-weight-semibold, 600);
+  text-align: center;
+}
+
+mat-tab-group {
+  margin-top: var(--space-4, 16px);
+}
+
+mat-tab-body {
+  padding-top: var(--space-4, 16px);
+}

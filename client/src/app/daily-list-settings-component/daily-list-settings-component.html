@@ -1,0 +1,77 @@
+<div class="daily-list-settings">
+  <h2>Daily List Settings</h2>
+  <p class="description">Reorder your daily categories by dragging and dropping. Add or remove categories as needed.</p>
+
+  <div class="categories-section">
+    <h3>Selected Categories</h3>
+    <div
+      cdkDropList
+      class="categories-list"
+      (cdkDropListDropped)="drop($event)"
+      role="list"
+      aria-label="Reorderable categories list"
+    >
+      <div
+        *ngFor="let category of selectedCategories; let i = index"
+        cdkDrag
+        class="category-item"
+        role="listitem"
+      >
+        <div class="category-content">
+          <mat-icon cdkDragHandle class="drag-handle" aria-label="Drag to reorder {{ category.name }}">drag_indicator</mat-icon>
+          <span class="category-name">{{ category.name }}</span>
+          <button
+            type="button"
+            class="remove-btn"
+            (click)="removeCategory(i)"
+            mat-icon-button
+            aria-label="Remove {{ category.name }} category"
+          >
+            <mat-icon>remove</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="add-category-section">
+    <h3>Add New Category</h3>
+    <div class="add-form">
+      <input
+        type="text"
+        [(ngModel)]="newCategoryName"
+        placeholder="Enter category name"
+        class="category-input"
+      >
+      <input
+        type="text"
+        [(ngModel)]="newCategoryUnit"
+        placeholder="Enter unit (e.g., kg, mg/dL, bpm)"
+        class="category-input unit-input"
+      >
+      <button
+        type="button"
+        class="add-btn"
+        (click)="addCategory()"
+        [disabled]="!newCategoryName.trim() || !newCategoryUnit.trim()"
+        mat-raised-button
+        color="primary"
+      >
+        <mat-icon>add</mat-icon>
+        Add
+      </button>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button
+      type="button"
+      class="save-btn"
+      (click)="saveSettings()"
+      mat-raised-button
+      color="primary"
+    >
+      Save Changes
+    </button>
+  </div>
+</div>

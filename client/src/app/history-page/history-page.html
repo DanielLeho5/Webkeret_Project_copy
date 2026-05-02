@@ -1,0 +1,25 @@
+<main id="main-content">
+  <header>
+    <h1>History Page</h1>
+  </header>
+  <section *ngIf="(categories$ | async) as categories">
+    <app-history-filter-component
+      [categories]="categories"
+      (filterChange)="onFilterChange($event)"
+    ></app-history-filter-component>
+    <ng-container *ngIf="(filteredData$ | async) as filteredData">
+      <app-history-table-component
+        [dataSource]="filteredData"
+        [categories]="categories"
+        [selectedCategory]="selectedCategory"
+        (foodSummaryRequested)="openFoodSummary($event)"
+      ></app-history-table-component>
+    </ng-container>
+  </section>
+</main>
+
+<app-food-summary-modal-component
+  *ngIf="activeFoodSummary"
+  [summary]="activeFoodSummary"
+  (close)="closeFoodSummary()"
+></app-food-summary-modal-component>

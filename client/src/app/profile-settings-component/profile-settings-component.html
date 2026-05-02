@@ -1,0 +1,43 @@
+<section class="profile-settings" role="region" aria-labelledby="profile-settings-title">
+  <h2 id="profile-settings-title">Profile Settings</h2>
+  <form class="profile-form" #profileForm="ngForm" (ngSubmit)="onSave()" role="form" aria-labelledby="profile-settings-title">
+    <div class="form-group">
+      <label for="name">Full Name</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        [(ngModel)]="profile.name"
+        required
+        class="form-input"
+        aria-describedby="name-error"
+      >
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        [(ngModel)]="profile.email"
+        readonly
+        class="form-input readonly"
+      >
+    </div>
+
+    <div class="form-group">
+      <label for="password">New Password</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        [(ngModel)]="profile.password"
+        placeholder="Leave empty to keep current password"
+        class="form-input"
+      >
+    </div>
+
+    <button type="submit" class="save-button" [disabled]="!profileForm.valid">Save Changes</button>
+  </form>
+</section>

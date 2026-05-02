@@ -1,0 +1,63 @@
+<div class="daily-list-form">
+  <div class="page-heading">
+    <p class="eyebrow">Daily tracking</p>
+    <h2>Daily Health Measurements</h2>
+    <p class="description">Enter the measurements you want to track today. Each category is shown as its own card for quicker scanning.</p>
+  </div>
+
+  <div *ngIf="loading" class="loading">Loading today's measurements...</div>
+
+  <div class="measurements-section" *ngIf="!loading && selectedCategories.length > 0">
+    <div class="section-heading">
+      <div>
+        <h3>Today's Measurements</h3>
+        <p>Fill in the values below and save them together.</p>
+      </div>
+      <div class="count-pill">{{ selectedCategories.length }} items</div>
+    </div>
+
+    <div class="measurement-list">
+      <div *ngFor="let category of selectedCategories" class="measurement-item">
+        <div class="measurement-header">
+          <span class="field-label">{{ category.name }}</span>
+        </div>
+
+        <div class="measurement-field">
+          <mat-form-field appearance="outline" class="form-field">
+            <input
+              matInput
+              type="number"
+              [placeholder]="'Enter value'"
+              [(ngModel)]="measurements[category._id]"
+              [name]="'measurement-' + category._id"
+            >
+            <span matSuffix class="input-unit">{{ category.unit }}</span>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button
+        type="button"
+        class="save-btn"
+        (click)="submitMeasurements()"
+        [disabled]="isLoading"
+        mat-raised-button
+        color="primary"
+      >
+        <mat-icon>save</mat-icon>
+        Save Measurements
+      </button>
+    </div>
+  </div>
+
+  <div class="no-categories" *ngIf="!loading && selectedCategories.length === 0">
+    <div class="empty-state">
+      <h3>No categories selected</h3>
+      <p>Please go to Settings to configure your daily tracking categories.</p>
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" class="loading">Saving measurements...</div>
+</div>

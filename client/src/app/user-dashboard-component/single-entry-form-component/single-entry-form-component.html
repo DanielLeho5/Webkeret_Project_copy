@@ -1,0 +1,92 @@
+<div class="single-entry-form">
+  <h2>Additional Measurements</h2>
+  <p class="description">Add individual measurements that are not part of your daily tracking routine.</p>
+
+  <div *ngIf="loading" class="loading">Loading additional measurements...</div>
+
+  <div class="entry-section" *ngIf="!loading">
+    <h3>Single Measurement Entry</h3>
+    <datalist id="categories-list">
+      <option *ngFor="let category of categories" [value]="category.name"></option>
+    </datalist>
+    <datalist id="units-list">
+      <option value="mmHg">
+      <option value="bpm">
+      <option value="kg">
+      <option value="cm">
+      <option value="°C">
+      <option value="mg/dL">
+      <option value="mmol/L">
+      <option value="%">
+      <option value="kcal">
+      <option value="g">
+    </datalist>
+    <div class="entry-list">
+      <div *ngFor="let entry of entries; let i = index" class="entry-row">
+        <div class="entry-field">
+          <span class="field-label">Category</span>
+          <mat-form-field appearance="outline" class="form-field">
+            <input
+              matInput
+              type="text"
+              placeholder="e.g., Blood Pressure"
+              [(ngModel)]="entry.categoryName"
+              [name]="'category-' + i"
+              list="categories-list"
+            >
+          </mat-form-field>
+        </div>
+
+        <div class="entry-field">
+          <span class="field-label">Value</span>
+          <mat-form-field appearance="outline" class="form-field">
+            <input
+              matInput
+              type="number"
+              placeholder="Enter value"
+              [(ngModel)]="entry.value"
+              [name]="'value-' + i"
+            >
+          </mat-form-field>
+        </div>
+
+        <div class="entry-field">
+          <span class="field-label">Unit</span>
+          <mat-form-field appearance="outline" class="form-field">
+            <input
+              matInput
+              type="text"
+              placeholder="e.g., mmHg"
+              [(ngModel)]="entry.unit"
+              [name]="'unit-' + i"
+              list="units-list"
+            >
+          </mat-form-field>
+        </div>
+
+        <div class="entry-actions">
+          <button mat-icon-button color="warn" (click)="deleteRow(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row-actions">
+      <button type="button" class="add-row-btn" (click)="addRow()" mat-raised-button>
+        + Add New Measurement
+      </button>
+      <button
+        type="button"
+        class="save-btn"
+        (click)="saveEntries()"
+        [disabled]="isLoading"
+        mat-raised-button
+        color="primary"
+      >
+        <mat-icon>save</mat-icon>
+        Save Measurements
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+.pagination {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--button-spacing, 12px);
+	margin: 16px 0;
+}
+
+.page-label {
+	color: var(--text-color, #222);
+	font-weight: 600;
+}
+
+.page-button {
+	padding: 8px 14px;
+	border: none;
+	border-radius: 4px;
+	background-color: var(--button-bg-color, #3498db);
+	color: var(--button-text-color, #fff);
+	cursor: pointer;
+}
+
+.page-button:disabled {
+	background-color: #bdbdbd;
+	cursor: not-allowed;
+}

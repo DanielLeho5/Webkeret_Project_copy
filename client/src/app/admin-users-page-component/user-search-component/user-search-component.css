@@ -1,0 +1,8 @@
+.user-search {
+  margin-bottom: var(--space-6, 24px);
+}
+
+.search-field {
+  width: 100%;
+  max-width: 500px;
+}

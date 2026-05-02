@@ -1,0 +1,12 @@
+.admin-users-page {
+  padding: var(--space-6, 24px);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.admin-users-page h1 {
+  color: var(--color-text-primary, #111827);
+  margin-bottom: var(--space-6, 24px);
+  font-size: var(--font-size-2xl, 24px);
+  font-weight: var(--font-weight-bold, 700);
+}

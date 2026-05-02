@@ -1,0 +1,12 @@
+[build]
+command = "ng build"
+publish = "dist/food-health-app/browser"
+functions = "dist/food-health-app/server"
+
+[functions."api"]
+node_bundler = "esbuild"
+
+[[redirects]]
+from = "/*"
+to = "/.netlify/functions/server"
+status = 200

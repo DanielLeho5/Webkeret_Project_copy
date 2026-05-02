@@ -1,0 +1,99 @@
+<div class="daily-food-list-form">
+  <h2>Daily Food List</h2>
+  <p class="description">Track your daily food intake. Add foods with their nutritional information.</p>
+
+  <div class="add-food-section">
+    <h3>Add Food Item</h3>
+    <div class="add-form">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Food Name</mat-label>
+        <input matInput [(ngModel)]="newFoodItem.name" placeholder="e.g., Apple, Chicken Breast">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Quantity</mat-label>
+        <input matInput type="number" [(ngModel)]="newFoodItem.quantity" min="0" step="0.1">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Unit</mat-label>
+        <mat-select [(ngModel)]="newFoodItem.unit">
+          <mat-option *ngFor="let unit of commonUnits" [value]="unit">{{ unit }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="nutrition-fields">
+        <mat-form-field appearance="outline" class="form-field small">
+          <mat-label>Calories</mat-label>
+          <input matInput type="number" [(ngModel)]="newFoodItem.calories" min="0" step="0.1">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field small">
+          <mat-label>Protein (g)</mat-label>
+          <input matInput type="number" [(ngModel)]="newFoodItem.protein" min="0" step="0.1">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field small">
+          <mat-label>Carbs (g)</mat-label>
+          <input matInput type="number" [(ngModel)]="newFoodItem.carbs" min="0" step="0.1">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field small">
+          <mat-label>Fat (g)</mat-label>
+          <input matInput type="number" [(ngModel)]="newFoodItem.fat" min="0" step="0.1">
+        </mat-form-field>
+      </div>
+
+      <button
+        type="button"
+        class="add-btn"
+        (click)="addFoodItem()"
+        [disabled]="!newFoodItem.name?.trim() || !newFoodItem.quantity || newFoodItem.quantity <= 0"
+        mat-raised-button
+        color="primary"
+      >
+        <mat-icon>add</mat-icon>
+        Add Food
+      </button>
+    </div>
+  </div>
+
+  <div class="food-items-section" *ngIf="foodItems.length > 0">
+    <h3>Today's Food Items</h3>
+    <div class="food-items-list">
+      <div *ngFor="let item of foodItems; let i = index" class="food-item">
+        <div class="food-item-content">
+          <div class="food-item-main">
+            <span class="food-name">{{ item.name }}</span>
+            <span class="food-quantity">{{ item.quantity }} {{ item.unit }}</span>
+          </div>
+          <div class="food-item-nutrition" *ngIf="item.calories || item.protein || item.carbs || item.fat">
+            <span *ngIf="item.calories">{{ item.calories }} cal</span>
+            <span *ngIf="item.protein">P: {{ item.protein }}g</span>
+            <span *ngIf="item.carbs">C: {{ item.carbs }}g</span>
+            <span *ngIf="item.fat">F: {{ item.fat }}g</span>
+          </div>
+        </div>
+        <button
+          type="button"
+          class="remove-btn"
+          (click)="removeFoodItem(i)"
+          mat-icon-button
+          aria-label="Remove {{ item.name }}"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="nutrition-summary">
+      <h4>Daily Totals</h4>
+      <div class="totals">
+        <span>Calories: {{ getTotalNutrition().calories }}</span>
+        <span>Protein: {{ getTotalNutrition().protein }}g</span>
+        <span>Carbs: {{ getTotalNutrition().carbs }}g</span>
+        <span>Fat: {{ getTotalNutrition().fat }}g</span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,50 @@
+<div class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="food-summary-title" (click)="onClose()">
+  <div class="modal-content" (click)="$event.stopPropagation()" *ngIf="summary">
+    <header class="modal-header">
+      <div>
+        <p class="modal-eyebrow">Daily food summary</p>
+        <h2 id="food-summary-title">{{ summary.date }}</h2>
+      </div>
+      <button class="close-button" type="button" (click)="onClose()" aria-label="Close food summary">&#10005;</button>
+    </header>
+
+    <section class="modal-body">
+      <div class="totals-grid">
+        <div class="total-card">
+          <span class="total-label">Calories</span>
+          <span class="total-value">{{ summary.totals.calories }}</span>
+        </div>
+        <div class="total-card">
+          <span class="total-label">Protein</span>
+          <span class="total-value">{{ summary.totals.protein }} g</span>
+        </div>
+        <div class="total-card">
+          <span class="total-label">Carbs</span>
+          <span class="total-value">{{ summary.totals.carbs }} g</span>
+        </div>
+        <div class="total-card">
+          <span class="total-label">Fat</span>
+          <span class="total-value">{{ summary.totals.fat }} g</span>
+        </div>
+      </div>
+
+      <div class="food-list" *ngIf="summary.foods.length; else emptyState">
+        <h3>Foods</h3>
+        <ul>
+          <li *ngFor="let food of summary.foods">
+            <span class="food-name">{{ food.name }}</span>
+            <span class="food-macros">{{ food.calories }} cal · {{ food.protein }}g P · {{ food.carbs }}g C · {{ food.fat }}g F</span>
+          </li>
+        </ul>
+      </div>
+
+      <ng-template #emptyState>
+        <p class="empty-state">No foods recorded for this day.</p>
+      </ng-template>
+    </section>
+
+    <footer class="modal-footer">
+      <button class="action-button" type="button" (click)="onClose()">Close</button>
+    </footer>
+  </div>
+</div>

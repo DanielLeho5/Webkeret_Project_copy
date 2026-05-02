@@ -1,0 +1,27 @@
+<div class="history-table-scroll">
+  <table class="history-table mat-elevation-z8">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th *ngFor="let category of visibleCategories">{{ category.name }}</th>
+        <th>Food Summary</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let element of dataSource">
+        <td>{{ element.date }}</td>
+        <td *ngFor="let category of visibleCategories">{{ element.measurements[category._id] || '-' }}</td>
+        <td>
+          <button
+            mat-button
+            class="food-summary-button"
+            type="button"
+            (click)="onFoodSummary(element)"
+          >
+            View
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

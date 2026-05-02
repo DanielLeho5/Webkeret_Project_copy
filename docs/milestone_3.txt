@@ -1,0 +1,65 @@
+Az alkalmazás működő email/jelszó alapú (vagy egyéb provider-es) autentikációval rendelkezik.
+Szempont Pont
+Regisztráció — Működő regisztrációs form validációval (email formátum, jelszó
+minimum követelmények)
+1
+Bejelentkezés — Működő bejelentkezés, hibakezelés rossz adatok esetén 1
+Kijelentkezés — Működő kijelentkezés, a session megszűnik 1
+Auth állapot perzisztencia — Frissítés után is emlékszik a bejelentkezett
+felhasználóra
+1
+Auth-függő UI — A felület alkalmazkodik a bejelentkezési állapothoz 1
+3.2 Jogosultságkezelés és védelem (5 pont)
+Az alkalmazás megkülönböztet legalább 2 felhasználói szerepet vagy interakciós módot.
+Szempont Pont
+Védett útvonalak (route guard) — Legalább 1 route nem érhető el bejelentkezés
+nélkül; átirányítás a login oldalra
+2
+Szerepkör-alapú hozzáférés a UI-ban — A felhasználó szerepe/tulajdonosi
+viszonya alapján más elemek jelennek meg
+1
+Szerver/backend-oldali szabályok — A jogosultságok nem csak kliens-oldalon
+vannak ellenőrizve (Firestore Rules, API middleware stb.)
+2
+3.3 Input validáció és biztonság (2 pont)
+Az alkalmazás alapvető biztonsági és validációs gyakorlatokat alkalmaz.
+Elvárt technikák (legalább 2 megvalósítandó a következőkből):
+1. Kliens-oldali input validáció — a form-ok mezőire validáció van definiálva, a hibák
+megjelennek
+2. Szerver-oldali validáció — a backend is ellenőrzi a bejövő adatokat
+3. XSS-védelem — felhasználói input nem renderélődik nyers HTML-ként
+4. Érzékeny adatok védelme — jelszavak, API kulcsok nem jelennek meg a kliens-oldali
+kódban, .gitignore
+Pontozás:
+• 2 pont — Legalább 3 technika alkalmazva.
+• 1 pont — 1–2 technika alkalmazva.
+• 0 pont — Nincs érdemi validáció vagy biztonsági intézkedés.
+3.4 Tesztelés (5 pont)
+Az alkalmazás tartalmaz unit teszteket és legalább 1 E2E tesztet.
+Szempont Pont
+Unit tesztek megléte — Legalább 10 darab unit teszt, amelyek futtathatók 2
+Unit tesztek minősége — A tesztek érdemi logikát tesztelnek (service logika,
+komponens renderelés, validáció, számítások)
+1
+E2E teszt — Legalább 1 E2E teszt, amely egy fő felhasználói folyamatot (happy
+path) végigkísér
+1
+A tesztek sikeresen lefutnak — A tesztek zölden futnak le (npm test vagy hasonló) 1
+3.5 Deploy és üzemeltetés (3 pont)
+Az alkalmazás elérhető egy publikus URL-en, és a projekt tartalmaz futtatási útmutatót.
+Szempont Pont
+Publikus URL — Az alkalmazás elérhető egy működő, publikus URL-en (Firebase
+Hosting, Vercel, Netlify stb.)
+1
+Az alkalmazás működik — A deployolt verzió betölt, a fő funkciók elérhetőek 1
+README.md — A repository tartalmaz README.md-t a projekt céljával és a
+lokális futtatás lépéseivel
+1
+3. mérföldkő összesítõ
+Szempont Max. pont
+Autentikáció 5
+Jogosultságkezelés és védelem 5
+Input validáció és biztonság 2
+Tesztelés 5
+Deploy és üzemeltetés 3
+Összesen 20

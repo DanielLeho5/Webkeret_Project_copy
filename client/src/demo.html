@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Design System Showcase</title>
+
+  <link rel="stylesheet" href="./styles/tokens.css">
+</head>
+<body style="background: var(--color-bg-secondary); font-family: var(--font-family-base);">
+
+<main style="padding: 32px; max-width: 1200px; margin: 0 auto;">
+
+  <h1>Design System Showcase</h1>
+
+  <!-- ================= COLORS ================= -->
+  <section>
+    <h2>Színek</h2>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:12px;">
+      <!-- Primary scale -->
+      <div style="background:var(--color-primary-50);padding:16px;">50</div>
+      <div style="background:var(--color-primary-100);padding:16px;">100</div>
+      <div style="background:var(--color-primary-200);padding:16px;">200</div>
+      <div style="background:var(--color-primary-300);padding:16px;">300</div>
+      <div style="background:var(--color-primary-400);padding:16px;color:white;">400</div>
+      <div style="background:var(--color-primary-500);padding:16px;color:white;">500</div>
+      <div style="background:var(--color-primary-600);padding:16px;color:white;">600</div>
+      <div style="background:var(--color-primary-700);padding:16px;color:white;">700</div>
+      <div style="background:var(--color-primary-800);padding:16px;color:white;">800</div>
+      <div style="background:var(--color-primary-900);padding:16px;color:white;">900</div>
+    </div>
+
+    <div style="margin-top:16px; display:flex; gap:12px;">
+      <div style="background:var(--color-success);padding:12px;color:white;">Success</div>
+      <div style="background:var(--color-warning);padding:12px;">Warning</div>
+      <div style="background:var(--color-error);padding:12px;color:white;">Error</div>
+      <div style="background:var(--color-info);padding:12px;color:white;">Info</div>
+    </div>
+  </section>
+
+  <!-- ================= TYPOGRAPHY ================= -->
+  <section style="margin-top:40px;">
+    <h2>Tipográfia</h2>
+
+    <p style="font-size:var(--font-size-xs)">XS szöveg</p>
+    <p style="font-size:var(--font-size-sm)">SM szöveg</p>
+    <p style="font-size:var(--font-size-md)">MD szöveg</p>
+    <p style="font-size:var(--font-size-lg)">LG szöveg</p>
+    <p style="font-size:var(--font-size-xl)">XL szöveg</p>
+    <p style="font-size:var(--font-size-2xl)">2XL szöveg</p>
+
+    <p style="font-weight:var(--font-weight-regular)">Regular</p>
+    <p style="font-weight:var(--font-weight-medium)">Medium</p>
+    <p style="font-weight:var(--font-weight-semibold)">Semibold</p>
+    <p style="font-weight:var(--font-weight-bold)">Bold</p>
+  </section>
+
+  <!-- ================= BUTTONS ================= -->
+  <section style="margin-top:40px;">
+    <h2>Gombok</h2>
+
+    <div style="display:flex;gap:12px;flex-wrap:wrap;">
+      <button class="button button-primary">Primary</button>
+      <button class="button button-secondary">Secondary</button>
+    </div>
+  </section>
+
+  <!-- ================= INPUTS ================= -->
+  <section style="margin-top:40px;">
+    <h2>Inputok</h2>
+
+    <div style="max-width:400px;">
+      <input class="input" placeholder="Normál input" />
+      <input class="input" placeholder="Focus me" style="margin-top:12px;" />
+    </div>
+  </section>
+
+  <!-- ================= CARD ================= -->
+  <section style="margin-top:40px;">
+    <h2>Kártyák</h2>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;">
+      
+      <div class="card">
+        <h3>Kártya 1</h3>
+        <p style="color:var(--color-text-secondary);">
+          Egyszerű kártya tartalom.
+        </p>
+        <button class="button button-primary">Akció</button>
+      </div>
+
+      <div class="card">
+        <h3>Kártya 2</h3>
+        <p style="color:var(--color-text-secondary);">
+          Másodlagos tartalom.
+        </p>
+        <button class="button button-secondary">Mégse</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= SPACING ================= -->
+  <section style="margin-top:40px;">
+    <h2>Spacing</h2>
+
+    <div style="display:flex;gap:8px;align-items:end;">
+      <div style="background:#ddd;height:var(--space-1);width:20px;"></div>
+      <div style="background:#ccc;height:var(--space-2);width:20px;"></div>
+      <div style="background:#bbb;height:var(--space-3);width:20px;"></div>
+      <div style="background:#aaa;height:var(--space-4);width:20px;"></div>
+      <div style="background:#999;height:var(--space-6);width:20px;"></div>
+      <div style="background:#888;height:var(--space-8);width:20px;"></div>
+      <div style="background:#777;height:var(--space-12);width:20px;"></div>
+    </div>
+  </section>
+
+  <!-- ================= RADIUS ================= -->
+  <section style="margin-top:40px;">
+    <h2>Border radius</h2>
+
+    <div style="display:flex;gap:12px;">
+      <div style="width:60px;height:60px;background:#ccc;border-radius:var(--radius-sm);"></div>
+      <div style="width:60px;height:60px;background:#bbb;border-radius:var(--radius-md);"></div>
+      <div style="width:60px;height:60px;background:#aaa;border-radius:var(--radius-lg);"></div>
+      <div style="width:60px;height:60px;background:#999;border-radius:var(--radius-xl);"></div>
+      <div style="width:60px;height:60px;background:#888;border-radius:var(--radius-full);"></div>
+    </div>
+  </section>
+
+  <!-- ================= SHADOW ================= -->
+  <section style="margin-top:40px;">
+    <h2>Shadow</h2>
+
+    <div style="display:flex;gap:16px;">
+      <div style="width:100px;height:60px;background:white;box-shadow:var(--shadow-sm);"></div>
+      <div style="width:100px;height:60px;background:white;box-shadow:var(--shadow-md);"></div>
+      <div style="width:100px;height:60px;background:white;box-shadow:var(--shadow-lg);"></div>
+    </div>
+  </section>
+
+</main>
+
+</body>
+</html>

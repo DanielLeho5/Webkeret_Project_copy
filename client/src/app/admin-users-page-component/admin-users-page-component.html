@@ -1,0 +1,26 @@
+<main id="main-content" class="admin-users-page">
+  <header>
+    <h1>Admin - User Management</h1>
+  </header>
+
+  <section>
+    <app-user-search-component
+      (search)="onSearch($event)">
+    </app-user-search-component>
+  </section>
+
+  <section>
+    <app-user-table-component
+      [users]="filteredUsers"
+      (editUser)="onEditUser($event)"
+      (deleteUser)="onDeleteUser($event)">
+    </app-user-table-component>
+  </section>
+
+  <app-user-modal-component
+    *ngIf="showModal"
+    [user]="selectedUser"
+    (save)="onSaveUser($event)"
+    (cancel)="onCancelEdit()">
+  </app-user-modal-component>
+</main>

@@ -1,0 +1,21 @@
+<section class="account-actions" role="region" aria-labelledby="account-actions-title">
+  <h2 id="account-actions-title">Account Actions</h2>
+  <div class="account-actions__buttons">
+    <button
+      mat-raised-button
+      class="theme-toggle-button"
+      (click)="toggleTheme()"
+      [attr.aria-label]="isDark() ? 'Switch to light mode' : 'Switch to dark mode'"
+    >
+      {{ isDark() ? 'Switch to Light Mode' : 'Switch to Dark Mode' }}
+    </button>
+    <button
+      mat-raised-button
+      class="logout-button"
+      (click)="onLogout()"
+      aria-label="Log out from your account"
+    >
+      Logout
+    </button>
+  </div>
+</section>

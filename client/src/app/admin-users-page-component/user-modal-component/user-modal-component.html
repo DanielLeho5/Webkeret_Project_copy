@@ -1,0 +1,55 @@
+<div class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" (click)="onCancel()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2 id="modal-title">Edit User</h2>
+      <button mat-icon-button (click)="onCancel()" aria-label="Close edit user modal">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <form #userForm="ngForm">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Name</mat-label>
+          <input
+            matInput
+            [(ngModel)]="editedUser.name"
+            name="name"
+            required
+          >
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            [(ngModel)]="editedUser.email"
+            name="email"
+            type="email"
+            required
+          >
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Role</mat-label>
+          <mat-select [(ngModel)]="editedUser.role" name="role" required>
+            <mat-option value="user">User</mat-option>
+            <mat-option value="admin">Admin</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+    </div>
+
+    <div class="modal-footer">
+      <button mat-button (click)="onCancel()">Cancel</button>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="onSave()"
+        [disabled]="!userForm.valid"
+      >
+        Save Changes
+      </button>
+    </div>
+  </div>
+</div>

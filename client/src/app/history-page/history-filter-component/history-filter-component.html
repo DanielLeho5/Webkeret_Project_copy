@@ -1,0 +1,25 @@
+<section class="filter-card" role="search" aria-label="Filter health data history">
+	<div class="filter-field">
+		<label for="fromDate">From</label>
+		<input id="fromDate" type="date" [(ngModel)]="fromDate" (change)="emitChange()" aria-describedby="fromDate-help" />
+	</div>
+
+	<div class="filter-field">
+		<label for="toDate">To</label>
+		<input id="toDate" type="date" [(ngModel)]="toDate" (change)="emitChange()" aria-describedby="toDate-help" />
+	</div>
+
+	<div class="filter-field">
+		<label for="category">Category</label>
+		<select id="category" [(ngModel)]="category" (change)="emitChange()" aria-describedby="category-help">
+			<option value="all">All</option>
+			<option *ngFor="let categoryOption of categories" [value]="categoryOption._id">
+				{{ categoryOption.name }}
+			</option>
+		</select>
+	</div>
+
+	<div class="filter-actions">
+		<button type="button" class="filter-reset" (click)="resetFilters()" aria-label="Reset all filters">Reset</button>
+	</div>
+</section>

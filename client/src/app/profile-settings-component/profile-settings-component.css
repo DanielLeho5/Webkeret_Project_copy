@@ -1,0 +1,72 @@
+.profile-settings {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: var(--space-6, 24px);
+}
+
+.profile-settings h2 {
+  color: var(--color-text-primary, #111827);
+  margin-bottom: var(--space-6, 24px);
+  font-size: var(--font-size-xl, 20px);
+  font-weight: var(--font-weight-semibold, 600);
+}
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5, 20px);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2, 8px);
+}
+
+.form-group label {
+  font-weight: var(--font-weight-medium, 500);
+  color: var(--color-text-primary, #111827);
+  font-size: var(--font-size-md, 16px);
+}
+
+.form-input {
+  padding: var(--space-3, 12px);
+  border: 1px solid var(--color-border, #d1d5db);
+  border-radius: var(--radius-md, 10px);
+  font-size: var(--font-size-md, 16px);
+  background: var(--color-bg-primary, #ffffff);
+  color: var(--color-text-primary, #111827);
+  transition: border-color 0.2s ease;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--color-primary-500, #2196f3);
+}
+
+.form-input.readonly {
+  background: var(--color-bg-secondary, #f9fafb);
+  cursor: not-allowed;
+}
+
+.save-button {
+  padding: var(--space-4, 16px) var(--space-6, 24px);
+  background: var(--color-primary-500, #2196f3);
+  color: var(--color-text-inverse, #ffffff);
+  border: none;
+  border-radius: var(--radius-md, 10px);
+  font-size: var(--font-size-md, 16px);
+  font-weight: var(--font-weight-medium, 500);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  align-self: flex-start;
+}
+
+.save-button:hover:not(:disabled) {
+  background: var(--color-primary-600, #1e88e5);
+}
+
+.save-button:disabled {
+  background: var(--color-gray-400, #9ca3af);
+  cursor: not-allowed;
+}
