@@ -7,9 +7,17 @@ async function getDailyList(req, res) {
             return res.status(401).json({ message: "Unauthorized" });
         }
 
-        const dailyList = await DailyList.findOne({ userId }).populate("categories");
+        let dailyList = await DailyList.findOne({ userId }).populate("categories");
+        
+        // If no daily list exists, create a default one
         if (!dailyList) {
-            return res.status(404).json({ message: "Daily list not found" });
+            dailyList = new DailyList({
+                userId,
+                categories: [],
+                order: 0
+            });
+            await dailyList.save();
+            await dailyList.populate("categories");
         }
 
         return res.status(200).json(dailyList);
