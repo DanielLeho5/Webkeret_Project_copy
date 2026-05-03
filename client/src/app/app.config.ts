@@ -7,10 +7,16 @@ import { provideClientHydration, withEventReplay } from '@angular/platform-brows
 import { authInterceptor } from './auth.interceptor';
 
 function initializeApiUrl() {
-  return () => {
-    // Set window.API_URL from environment variable if available (Render deployment)
-    if (typeof window !== 'undefined' && typeof process !== 'undefined') {
-      (window as any).API_URL = (process.env as any)['API_URL'] || '';
+  return async () => {
+    // Load API URL from config file (for Netlify static deployment)
+    if (typeof window !== 'undefined') {
+      try {
+        const response = await fetch('/api-config.json');
+        const config = await response.json();
+        (window as any).API_URL = config.apiUrl;
+      } catch (error) {
+        console.error('Failed to load API config:', error);
+      }
     }
   };
 }
