@@ -2,6 +2,3 @@
 base = "client"
 command = "npm run build:netlify"
 publish = "dist/food-health-app/browser"
-
-[functions]
-directory = "dist/food-health-app/server"

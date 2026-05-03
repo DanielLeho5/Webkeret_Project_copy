@@ -7,7 +7,7 @@
     "dev": "npx ng serve",
     "build": "npx ng build",
     "build:prod": "npx ng build --configuration production",
-    "build:netlify": "npm run build:prod && node scripts/rename-netlify-functions.js",
+    "build:netlify": "npm run build:prod",
     "watch": "npx ng build --watch --configuration development",
     "test": "npx ng test",
     "e2e": "playwright test",
