@@ -186,5 +186,3 @@ To keep always-on: Render paid tier ($7/mo per service)
 5. Add more E2E tests before production
 
 ---
-
-**Happy deploying! 🚀**
