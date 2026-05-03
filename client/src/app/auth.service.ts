@@ -16,12 +16,22 @@ export interface AuthResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = `${environment.apiUrl}/auth`;
+  private apiUrl: string;
 
   constructor(
     private http: HttpClient,
     @Inject(PLATFORM_ID) private platformId: Object
-  ) {}
+  ) {
+    // Get API URL from environment variable (Render) or environment config
+    let baseUrl = environment.apiUrl;
+    if (isPlatformBrowser(this.platformId)) {
+      const envApiUrl = (window as any)['API_URL'];
+      if (envApiUrl) {
+        baseUrl = envApiUrl;
+      }
+    }
+    this.apiUrl = `${baseUrl}/auth`;
+  }
 
   login(email: string, password: string): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.apiUrl}/login`, { email, password })

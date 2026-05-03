@@ -1,4 +1,8 @@
-# Deploy Guide: Netlify + Render
+# Deploy Guide: Render (Frontend + Backend)
+
+Full stack deployment on Render. Works with GitHub Classroom repos (no OAuth needed).
+
+**Key Fix for Status 127 error:** Use `npx ng build` not `ng build` in Build Command
 
 ## Step-by-step deployment
 
@@ -11,10 +15,11 @@
    git push origin main
    ```
 
-2. Ensure these files exist:
-   - `client/netlify.toml` ✅
-   - `server/.env.example` ✅
-   - `README.md` ✅
+2. Verify files exist:
+   - ✅ `server/.env.example`
+   - ✅ `README.md`
+   - ✅ `client/src/app/auth.service.ts` (reads API_URL)
+   - ✅ `client/src/app/app.config.ts` (APP_INITIALIZER sets window.API_URL)
 
 ---
 
@@ -50,89 +55,120 @@
 
 ### Phase 3: Backend Deployment (Render)
 
-1. Go to https://render.com
-2. Sign up with GitHub (easier)
-3. New → Web Service
-4. Connect Repository:
-   - Search your GitHub repo
-   - Connect
-5. Configure:
-   - **Name:** `food-health-api` (or any)
-   - **Environment:** Node
+1. Dashboard → New → **Web Service**
+3. Choose **Public Git Repository** tab
+4. Paste URL:
+   ```
+   https://github.com/webfejlesztesi-keretrendszerek-2026/projektmunka-DanielLeho5.git
+   ```
+5. Click Create → Configure:
+   - **Name:** `food-health-api`
+   - **Runtime:** Node
+   - **Root Directory:** `server`
    - **Build Command:** `npm install`
    - **Start Command:** `node server.js`
-   - **Instance Type:** Free (for testing)
-   - **Region:** Frankfurt (or nearest)
-6. Environment Variables (add these):
-   - Key: `MONGO_CONN`
-     Value: `mongodb+srv://dev:mypassword@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
-   - Key: `JWT_SECRET`
-     Value: `your-super-secret-key-min-32-chars-recommended`
-   - Key: `PORT`
-     Value: `3000`
-7. Create Web Service
-8. Wait for deploy (2-5 min)
-9. Once deployed, copy your URL: `https://food-health-api.onrender.com`
-   - Test: `curl https://food-health-api.onrender.com/health`
+   - **Region:** Frankfurt
+   - **Instance:** Free
+6. **Environment Variables** (add each):
+   - `MONGO_CONN`: `mongodb+srv://dev:YourPassword@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
+   - `JWT_SECRET`: `your-min-32-char-secret-key-abcdefghijklmnopqrstuvwxyz`
+   - `PORT`: `3000`
+7. Click Create Web Service
+8. Wait 3-5 min for green status
+9. Verify: `curl https://food-health-api.onrender.com/health`
+   - Should return: `{"status":"OK","timestamp":"..."}`
+10. **Copy your URL:** `https://food-health-api.onrender.com` (use this next)
    - Should return: `{"status":"OK","timestamp":"2026-05-02T..."}`
 
 ---
 
-### Phase 4: Frontend Deployment (Netlify)
+### Phase 4: Frontend Deployment (Render)
 
-1. Go to https://netlify.com
-2. Sign up with GitHub (easier)
-3. New site from Git:
-   - Select your GitHub repo
-4. Build settings:
-   - **Base directory:** `client`
-   - **Build command:** `ng build`
-   - **Publish directory:** `dist/food-health-app/browser`
-   - **Node version:** 20.x (set in netlify.toml or UI)
-5. Environment variables (add these):
-   - Key: `API_URL`
-     Value: `https://food-health-api.onrender.com`
-6. Deploy site
-7. Once deployed, copy your URL: `https://your-app.netlify.app`
+1. Dashboard → New → **Web Service**
+2. Choose **Public Git Repository** tab
+3. Paste URL:
+   ```
+   https://github.com/webfejlesztesi-keretrendszerek-2026/projektmunka-DanielLeho5.git
+   ```
+4. Click Create → Configure:
+   - **Name:** `food-health-app`
+   - **Runtime:** Node
+   - **Root Directory:** (empty)
+   - **Build Command:**
+     ```bash
+     cd client && npm install && npx ng build
+     ```
+     ⚠️ **IMPORTANT:** Use `npx ng build` not `ng build` (fixes "Status 127" error)
+   - **Start Command:**
+     ```bash
+     cd client && node dist/food-health-app/server/server.mjs
+     ```
+     ⚠️ This runs Angular SSR server, not dev server
+   - **Region:** Frankfurt
+   - **Instance:** Free
+5. **Environment Variables** (add each):
+   - `API_URL`: `https://food-health-api.onrender.com` (from Phase 3)
+   - `NODE_ENV`: `production`
+6. Click Create Web Service
+7. Wait 5-10 min for green status
+8. Click URL: `https://food-health-app.onrender.com`
 
 ---
 
 ### Phase 5: Verify Deployment
-
-1. Open browser: `https://your-app.netlify.app`
-2. Register new account
-3. Login
-4. Check if dashboard loads
-5. Try to add measurement data
+: `https://food-health-app.onrender.com` (wait 30s for cold start)
+2. Register: new account with email + password
+3. Login: use credentials
+4. Dashboard: should show form fields
+5. Add data: create a measurement
+6. Refresh page: data persists
+7. Logout → Login: data still there ✅
 6. Logout → Login again → data persists
 
 ---
 
-## Troubleshooting
+## T❌ Build exits with Status 127
+**Problem:** `ng: command not found`  
+**Fix:** Build Command must use `npx ng build` not `ng build`
 
-### "Cannot GET /api/auth/login" (404)
-→ Check `API_URL` environment variable on Netlify  
-→ Check CORS on Render (should be set to allow Netlify URL)
+### ❌ Build fails: "Cannot find module '@angular/cli'"
+**Problem:** npm install didn't run  
+**Fix:** Build Command: `cd client && npm install && npx ng build`
 
-### "mongodb connection error"
-→ Check `MONGO_CONN` on Render  
-→ Check Network Access on MongoDB Atlas (0.0.0.0/0)  
-→ Test connection: `mongosh "your-connection-string"`
+### ❌ "Cannot GET /api/auth/login" (404)
+**Problem:** Frontend can't reach backend  
+**Fix:**
+- Check frontend `API_URL` env var = backend URL
+- Backend URL should be: `https://food-health-api.onrender.com`
+- Test: `curl https://food-health-api.onrender.com/health`
 
-### "Netlify build fails"
-→ Check `ng build` locally works: `cd client && ng build`  
-→ Check `node_modules` is in .gitignore  
-→ Check Node version (18+)
+### ❌ "MongoDB connection error"
+**Problem:** Database not reachable  
+**Fix:**
+- Check `MONGO_CONN` has no typos
+- Check MongoDB Atlas Network Access = `0.0.0.0/0`
+- Test locally: `mongosh "your-connection-string"`
 
-### "SSR not working"
-→ Ensure `netlify.toml` is in client root  
-→ Ensure build output: `dist/food-health-app/browser` exists locally
+### ❌ App loads but can't add data
+**Problem:** Backend API call fails  
+**Fix:**
+- Check Render backend logs (Render dashboard → service → logs)
+- Check `JWT_SECRET` is set on backend
+- Check `MONGO_CONN` is correct
+
+### ❌ Cold start takes 30+ seconds
+**Normal for free tier** (spins down after 15 min)  
+**Solution:** Upgrade to $7/mo Render tier for always-onon Render)  
+→ Test backend: `curl https://food-health-api.onrender.com/health`  
+→ Should return: `{"status":"OK","timestamp":"..."}`
 
 ---
+Render (2x services) | Yes | 750 free tier hours/mo (750÷2=375h each) |
+| MongoDB Atlas | 512 MB free | Enough for testing |
+| **Total** | **~$0** | Full stack free for testing |
 
-## Cost estimate
-
-| Service | Free Tier | Notes |
+**Note:** Free tier spins down after 15 min inactivity. First request takes ~30s.  
+To keep always-on: Render paid tier ($7/mo per service)
 |---------|-----------|-------|
 | Netlify | Yes | Unlimited free (with ads) |
 | Render | Yes | 750 free tier hours/mo |
