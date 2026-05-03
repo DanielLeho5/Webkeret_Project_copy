@@ -82,11 +82,9 @@ Full stack deployment on Render. Works with GitHub Classroom repos (no OAuth nee
 
 ---
 
-### Phase 4: Frontend Deployment (Render) - Option A: Static Site (Recommended)
+### Phase 4: Frontend Deployment (Render)
 
-**Easiest option - no server needed:**
-
-1. Dashboard → New → **Static Site**
+1. Dashboard → New → **Web Service**
 2. Choose **Public Git Repository** tab
 3. Paste URL:
    ```
@@ -94,70 +92,26 @@ Full stack deployment on Render. Works with GitHub Classroom repos (no OAuth nee
    ```
 4. Click Create → Configure:
    - **Name:** `food-health-app`
+   - **Runtime:** Node
+   - **Root Directory:** (empty)
    - **Build Command:**
      ```bash
-     npm --prefix client install && npm --prefix client run build:prod
+     cd client && npm install && npx ng build
      ```
-   - **Publish Directory:** `client/dist/food-health-app/browser`
-   - **Root Directory:** (empty)
-5. **Environment Variables** (add each):
-   - `API_URL`: `https://food-health-api.onrender.com/api` (full URL with /api path)
-   - `NODE_ENV`: `production`
-6. Click Create Static Site
-7. Wait 2-3 min for deployment
-8. Copy your URL: `https://food-health-app-xxxxx.onrender.com`
-9. Go back to **backend service** → **Environment** and add:
-   - `CORS_ORIGIN`: `https://food-health-app-xxxxx.onrender.com` (use your actual frontend URL)
-
----
-
-### Phase 4: Frontend Deployment (Render) - Option B: Web Service with Node Server
-
-**If you prefer Web Service instead:**
-
-1. First, create a simple server file. In `client/` folder, create `server.js`:
-   ```javascript
-   const express = require('express');
-   const path = require('path');
-   const app = express();
-   
-   const PORT = process.env.PORT || 3000;
-   const DIST_PATH = path.join(__dirname, 'dist/food-health-app/browser');
-   
-   app.use(express.static(DIST_PATH));
-   app.get('/*', (req, res) => {
-     res.sendFile(path.join(DIST_PATH, 'index.html'));
-   });
-   
-   app.listen(PORT, () => {
-     console.log(`Frontend server running on port ${PORT}`);
-   });
-   ```
-
-2. Add to `client/package.json` (in scripts section):
-   ```json
-   "start": "node server.js"
-   ```
-
-3. In Render Dashboard → New → **Web Service**
-4. Choose **Public Git Repository** tab
-5. Paste URL:
-   ```
-   https://github.com/webfejlesztesi-keretrendszerek-2026/projektmunka-DanielLeho5.git
-   ```
-6. Click Create → Configure:
-   - **Name:** `food-health-app`
-   - **Runtime:** Node
-   - **Root Directory:** `client`
-   - **Build Command:** `npm install && npx ng build`
-   - **Start Command:** `npm start`
+     ⚠️ **IMPORTANT:** Use `npx ng build` not `ng build` (fixes "Status 127" error)
+   - **Start Command:**
+     ```bash
+     cd client && node dist/food-health-app/server/server.mjs
+     ```
+     ⚠️ This runs Angular SSR server, not dev server
    - **Region:** Frankfurt
    - **Instance:** Free
-7. **Environment Variables:**
+5. **Environment Variables** (add each):
    - `API_URL`: `https://food-health-api.onrender.com` (from Phase 3)
    - `NODE_ENV`: `production`
-8. Click Create Web Service
-9. Wait 5-10 min for green status
+6. Click Create Web Service
+7. Wait 5-10 min for green status
+8. Click URL: `https://food-health-app.onrender.com`
 
 ---
 
@@ -216,6 +170,7 @@ Render (2x services) | Yes | 750 free tier hours/mo (750÷2=375h each) |
 **Note:** Free tier spins down after 15 min inactivity. First request takes ~30s.  
 To keep always-on: Render paid tier ($7/mo per service)
 |---------|-----------|-------|
+| Netlify | Yes | Unlimited free (with ads) |
 | Render | Yes | 750 free tier hours/mo |
 | MongoDB | 512 MB free | Enough for testing |
 | **Total** | **~$0** | Full stack free for testing |
@@ -224,7 +179,7 @@ To keep always-on: Render paid tier ($7/mo per service)
 
 ## Next steps after deploy
 
-1. Add custom domain (Render supports)
+1. Add custom domain (both Netlify & Render support)
 2. Set up SSL (automatic on both)
 3. Add email notifications / monitoring
 4. Set up CI/CD on GitHub (auto-deploy on push)

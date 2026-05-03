@@ -25,6 +25,10 @@ build/
 .DS_Store
 Thumbs.db
 
+# Netlify
+.netlify/
+netlify-cli-auth
+
 # Testing
 coverage/
 test-results/

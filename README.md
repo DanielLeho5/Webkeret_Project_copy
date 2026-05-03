@@ -47,7 +47,7 @@ npx playwright install chromium  # Először egyszer
 npm run e2e                       # register → login → dashboard
 ```
 
-## 📤 Deploy (Render)
+## 📤 Deploy (Netlify + Render)
 
 ### 1. MongoDB Atlas setup
 - https://cloud.mongodb.com → Register
@@ -74,6 +74,19 @@ npm run e2e                       # register → login → dashboard
 4. Deploy → Render URL: https://your-backend.onrender.com
 ```
 
+### 3. Frontend (Netlify)
+```bash
+1. Netlify.com-ra sign up
+2. New site from Git → GitHub repo select
+   - Build settings:
+     - Base dir: client
+     - Build cmd: ng build
+     - Publish dir: dist/food-health-app/browser
+3. Environment variables add:
+   - API_URL = https://your-backend.onrender.com
+4. Deploy → Netlify URL: https://your-app.netlify.app
+```
+
 ## 🔒 Biztonsági intézkedések
 
 ✅ Kliens validáció (email, minLength 8)  
@@ -92,7 +105,7 @@ npm run e2e                       # register → login → dashboard
 | Jogosultságkezelés | 5/5 |
 | Validáció & Biztonság | 2/2 |
 | Tesztelés | 5/5 |
-| Deploy | 0/3 (Render) |
+| Deploy | 0/3 (Netlify + Render) |
 
 ## 📁 Projekt struktúra
 
@@ -108,6 +121,7 @@ client/
 │   ├── user-dashboard-component/
 │   └── [pages & components]
 ├── e2e/auth-happy-path.spec.ts
+├── netlify.toml
 └── package.json
 
 server/
