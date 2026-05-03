@@ -100,10 +100,13 @@ Full stack deployment on Render. Works with GitHub Classroom repos (no OAuth nee
      ```
    - **Publish Directory:** `client/dist/food-health-app/browser`
    - **Root Directory:** (empty)
-5. Click Create Static Site
-6. Wait 2-3 min for deployment
-7. Copy your URL: `https://food-health-app-xxxxx.onrender.com`
-8. Go back to **backend service** → **Environment** and add:
+5. **Environment Variables** (add each):
+   - `API_URL`: `https://food-health-api.onrender.com` (from Phase 3)
+   - `NODE_ENV`: `production`
+6. Click Create Static Site
+7. Wait 2-3 min for deployment
+8. Copy your URL: `https://food-health-app-xxxxx.onrender.com`
+9. Go back to **backend service** → **Environment** and add:
    - `CORS_ORIGIN`: `https://food-health-app-xxxxx.onrender.com` (use your actual frontend URL)
 
 ---
