@@ -15,7 +15,7 @@ const app = express()
 const PORT = process.env.PORT || 3000
 
 app.use(cors({
-    origin: ["http://localhost:4200", "http://localhost:4201", "http://localhost:4202", "http://localhost:4206", "http://localhost:56695", "http://localhost:64928"],
+    origin: ["http://localhost:4200", "http://localhost:4201", "http://localhost:4202", "http://localhost:4206", "http://localhost:56695", "http://localhost:64928", "https://food-health-app-danleho.netlify.app"],
     credentials: true
 }))
 app.use(express.json())
