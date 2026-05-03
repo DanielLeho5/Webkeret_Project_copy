@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: process.env['API_URL'] || 'http://localhost:3000/api'
+  apiUrl: 'https://food-health-api-8fmy.onrender.com/api'
 };
