@@ -9,9 +9,12 @@ import { environment } from '../environments/environment';
   providedIn: 'root'
 })
 export class DailyFoodListService {
-  private apiUrl = `${environment.apiUrl}/daily-food-lists`;
+  private apiUrl: string;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    const baseUrl = (window as any).API_URL || environment.apiUrl;
+    this.apiUrl = `${baseUrl}/daily-food-lists`;
+  }
 
   getDailyFoodLists(startDate?: string, endDate?: string): Observable<DailyFoodList[]> {
     let params = new HttpParams();

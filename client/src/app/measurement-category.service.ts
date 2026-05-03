@@ -9,9 +9,12 @@ import { environment } from '../environments/environment';
   providedIn: 'root'
 })
 export class MeasurementCategoryService {
-  private apiUrl = `${environment.apiUrl}/measurement-categories`;
+  private apiUrl: string;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    const baseUrl = (window as any).API_URL || environment.apiUrl;
+    this.apiUrl = `${baseUrl}/measurement-categories`;
+  }
 
   getCategories(): Observable<MeasurementCategory[]> {
     return this.http.get<MeasurementCategory[]>(this.apiUrl)

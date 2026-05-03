@@ -9,9 +9,12 @@ import { environment } from '../environments/environment';
   providedIn: 'root'
 })
 export class MeasurementService {
-  private apiUrl = `${environment.apiUrl}/measurements`;
+  private apiUrl: string;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    const baseUrl = (window as any).API_URL || environment.apiUrl;
+    this.apiUrl = `${baseUrl}/measurements`;
+  }
 
   getMeasurements(categoryId?: string, startDate?: string, endDate?: string): Observable<Measurement[]> {
     let params = new HttpParams();

@@ -9,9 +9,12 @@ import { environment } from '../environments/environment';
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = `${environment.apiUrl}/users`;
+  private apiUrl: string;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    const baseUrl = (window as any).API_URL || environment.apiUrl;
+    this.apiUrl = `${baseUrl}/users`;
+  }
 
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.apiUrl)
