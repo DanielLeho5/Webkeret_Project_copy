@@ -170,7 +170,6 @@ Render (2x services) | Yes | 750 free tier hours/mo (750÷2=375h each) |
 **Note:** Free tier spins down after 15 min inactivity. First request takes ~30s.  
 To keep always-on: Render paid tier ($7/mo per service)
 |---------|-----------|-------|
-| Netlify | Yes | Unlimited free (with ads) |
 | Render | Yes | 750 free tier hours/mo |
 | MongoDB | 512 MB free | Enough for testing |
 | **Total** | **~$0** | Full stack free for testing |
@@ -179,7 +178,7 @@ To keep always-on: Render paid tier ($7/mo per service)
 
 ## Next steps after deploy
 
-1. Add custom domain (both Netlify & Render support)
+1. Add custom domain (Render supports)
 2. Set up SSL (automatic on both)
 3. Add email notifications / monitoring
 4. Set up CI/CD on GitHub (auto-deploy on push)
