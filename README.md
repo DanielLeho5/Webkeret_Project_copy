@@ -80,7 +80,7 @@ npm run e2e                       # register → login → dashboard
 2. New site from Git → GitHub repo select
    - Build settings:
      - Base dir: client
-     - Build cmd: ng build
+     - Build cmd: npm run build:netlify
      - Publish dir: dist/food-health-app/browser
 3. Environment variables add:
    - API_URL = https://your-backend.onrender.com
