@@ -82,9 +82,11 @@ Full stack deployment on Render. Works with GitHub Classroom repos (no OAuth nee
 
 ---
 
-### Phase 4: Frontend Deployment (Render)
+### Phase 4: Frontend Deployment (Render) - Option A: Static Site (Recommended)
 
-1. Dashboard → New → **Web Service**
+**Easiest option - no server needed:**
+
+1. Dashboard → New → **Static Site**
 2. Choose **Public Git Repository** tab
 3. Paste URL:
    ```
@@ -92,26 +94,67 @@ Full stack deployment on Render. Works with GitHub Classroom repos (no OAuth nee
    ```
 4. Click Create → Configure:
    - **Name:** `food-health-app`
-   - **Runtime:** Node
-   - **Root Directory:** (empty)
    - **Build Command:**
      ```bash
      cd client && npm install && npx ng build
      ```
-     ⚠️ **IMPORTANT:** Use `npx ng build` not `ng build` (fixes "Status 127" error)
-   - **Start Command:**
-     ```bash
-     cd client && node dist/food-health-app/server/server.mjs
-     ```
-     ⚠️ This runs Angular SSR server, not dev server
+   - **Publish Directory:** `client/dist/food-health-app/browser`
+   - **Root Directory:** (empty)
+5. Click Create Static Site
+6. Wait 2-3 min for deployment
+7. Copy your URL: `https://food-health-app-xxxxx.onrender.com`
+8. Go back to **backend service** → **Environment** and add:
+   - `CORS_ORIGIN`: `https://food-health-app-xxxxx.onrender.com` (use your actual frontend URL)
+
+---
+
+### Phase 4: Frontend Deployment (Render) - Option B: Web Service with Node Server
+
+**If you prefer Web Service instead:**
+
+1. First, create a simple server file. In `client/` folder, create `server.js`:
+   ```javascript
+   const express = require('express');
+   const path = require('path');
+   const app = express();
+   
+   const PORT = process.env.PORT || 3000;
+   const DIST_PATH = path.join(__dirname, 'dist/food-health-app/browser');
+   
+   app.use(express.static(DIST_PATH));
+   app.get('/*', (req, res) => {
+     res.sendFile(path.join(DIST_PATH, 'index.html'));
+   });
+   
+   app.listen(PORT, () => {
+     console.log(`Frontend server running on port ${PORT}`);
+   });
+   ```
+
+2. Add to `client/package.json` (in scripts section):
+   ```json
+   "start": "node server.js"
+   ```
+
+3. In Render Dashboard → New → **Web Service**
+4. Choose **Public Git Repository** tab
+5. Paste URL:
+   ```
+   https://github.com/webfejlesztesi-keretrendszerek-2026/projektmunka-DanielLeho5.git
+   ```
+6. Click Create → Configure:
+   - **Name:** `food-health-app`
+   - **Runtime:** Node
+   - **Root Directory:** `client`
+   - **Build Command:** `npm install && npx ng build`
+   - **Start Command:** `npm start`
    - **Region:** Frankfurt
    - **Instance:** Free
-5. **Environment Variables** (add each):
+7. **Environment Variables:**
    - `API_URL`: `https://food-health-api.onrender.com` (from Phase 3)
    - `NODE_ENV`: `production`
-6. Click Create Web Service
-7. Wait 5-10 min for green status
-8. Click URL: `https://food-health-app.onrender.com`
+8. Click Create Web Service
+9. Wait 5-10 min for green status
 
 ---
 
