@@ -96,12 +96,12 @@ Full stack deployment on Render. Works with GitHub Classroom repos (no OAuth nee
    - **Name:** `food-health-app`
    - **Build Command:**
      ```bash
-     cd client && npm install && npx ng build
+     npm --prefix client install && npm --prefix client run build:prod
      ```
    - **Publish Directory:** `client/dist/food-health-app/browser`
    - **Root Directory:** (empty)
 5. **Environment Variables** (add each):
-   - `API_URL`: `https://food-health-api.onrender.com` (from Phase 3)
+   - `API_URL`: `https://food-health-api.onrender.com/api` (full URL with /api path)
    - `NODE_ENV`: `production`
 6. Click Create Static Site
 7. Wait 2-3 min for deployment
